@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {AppColor} from '../../const/app-color';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {AppFontSize} from '../../const/app-font-size';
 
 export const ResultScreen = () => {
   const route = useRoute();
@@ -94,10 +95,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     marginHorizontal: 20,
+    marginBottom: 20,
   },
   newDataButtonText: {
     color: AppColor.black,
-    fontSize: 16,
+    fontSize: AppFontSize.s16,
     fontWeight: 'bold',
   },
 });
