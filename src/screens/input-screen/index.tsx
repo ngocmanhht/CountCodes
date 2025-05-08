@@ -15,6 +15,7 @@ import {
 import {AppColor} from '../../const/app-color';
 import {AppImages} from '../../const/app-images';
 import {AppFontSize} from '../../const/app-font-size';
+import {AppScreen} from '../../const/app-screen';
 
 const InputScreen = () => {
   const [startValue, setStartValue] = useState('');
@@ -24,7 +25,7 @@ const InputScreen = () => {
     // Handle scan logic here
     console.log('Scanning with values:', {startValue, endValue});
     navigation.navigate(
-      'ScannerScreen' as never,
+      AppScreen.ScannerScreen as never,
       {
         startValue: startValue,
         endValue: endValue,

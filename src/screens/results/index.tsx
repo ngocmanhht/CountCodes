@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {
   View,
   Text,
@@ -10,37 +10,68 @@ import {
 import {AppColor} from '../../const/app-color';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {AppFontSize} from '../../const/app-font-size';
+import {AppScreen} from '../../const/app-screen';
+import {ScannedItem} from '../../types/item';
 
 export const ResultScreen = () => {
   const route = useRoute();
   const params = route.params as {
     scannedData?: string[];
+    startValue?: string;
+    endValue?: string;
   };
   const scannedData = params?.scannedData;
+  const startValue = params?.startValue;
+  const endValue = params?.endValue;
+
   const navigation = useNavigation();
   const handleNewData = () => {
-    // Handle navigation to input screen or other action
-    console.log('Navigate to input new data');
-    navigation.navigate('InputScreen' as never);
+    navigation.navigate(AppScreen.InputScreen as never);
   };
+
+  const list: Array<ScannedItem> = useMemo(() => {
+    if (scannedData && startValue && endValue) {
+      const startValueNum = parseInt(startValue, 10);
+      const endValueNum = parseInt(endValue, 10);
+      const arrayLength = endValueNum - startValueNum + 1;
+      const result: Array<ScannedItem> = [];
+      for (let i = 0; i < arrayLength; i++) {
+        const value = startValueNum + i;
+        const valueString = `${value}`;
+        const numberScannedData = scannedData.map(i => parseInt(i, 10));
+        const set = new Set(numberScannedData);
+        if (set.has(value)) {
+          result.push({
+            value: valueString,
+            isScanned: true,
+            id: i,
+          });
+        } else {
+          result.push({id: i, value: valueString, isScanned: false});
+        }
+      }
+      return result;
+    }
+    return [];
+  }, [scannedData, startValue, endValue]);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.table}>
-          {scannedData?.map(i => (
+          {list?.map(i => (
             <View
-              key={`cell-${i}`}
+              key={`cell-${i.id}`}
               style={[
                 styles.cell,
                 {
                   borderWidth: 1,
-                  backgroundColor: AppColor.white,
+                  backgroundColor: i.isScanned ? AppColor.white : AppColor.gray,
                   borderRadius: 8,
                   borderColor: AppColor.gray,
                 },
               ]}>
-              <Text style={styles.cellText}>{i}</Text>
+              <Text style={styles.cellText}>{i.value}</Text>
             </View>
           ))}
         </View>

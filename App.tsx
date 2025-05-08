@@ -12,6 +12,7 @@ import InputScreen from './src/screens/input-screen';
 import ScannerScreen from './src/screens/scanner';
 import {ResultScreen} from './src/screens/results';
 import {AppColor} from './src/const/app-color';
+import {AppScreen} from './src/const/app-screen';
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator();
 
@@ -21,7 +22,7 @@ function App(): React.JSX.Element {
         <Stack.Navigator>
           <Stack.Screen
             options={{headerShown: false}}
-            name="InputScreen"
+            name={AppScreen.InputScreen}
             component={InputScreen}
           />
           <Stack.Screen
@@ -34,11 +35,11 @@ function App(): React.JSX.Element {
                 backgroundColor: AppColor.c1e1e1e,
               },
             }}
-            name="ScannerScreen"
+            name={AppScreen.ScannerScreen}
             component={ScannerScreen}
           />
           <Stack.Screen
-            name="ResultScreen"
+            name={AppScreen.ResultScreen}
             component={ResultScreen}
             options={{
               headerTitle: 'Thông số đã quét',

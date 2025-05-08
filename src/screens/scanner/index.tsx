@@ -13,6 +13,7 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
+import {AppScreen} from '../../const/app-screen';
 
 const ScannerScreen = () => {
   const device = useCameraDevice('back');
@@ -53,7 +54,7 @@ const ScannerScreen = () => {
       if (valueNum < startValueNum || valueNum > endValueNum) {
         Alert.alert(
           'Giá trị không hợp lệ',
-          `Giá trị ${value} không nằm trong khoảng ${startValue} - ${endValue}`,
+          `Giá trị ${valueNum} không nằm trong khoảng ${startValue} - ${endValue}`,
           [
             {
               text: 'OK',
@@ -108,8 +109,10 @@ const ScannerScreen = () => {
         style={styles.endScanButton}
         onPress={() => {
           setIsActive(false);
-          navigation.navigate('ResultScreen', {
+          navigation.navigate(AppScreen.ResultScreen, {
             scannedData: Array.from(scannedValues),
+            startValue,
+            endValue,
           });
         }}>
         <Text style={styles.endScanText}>Kết thúc quét</Text>
