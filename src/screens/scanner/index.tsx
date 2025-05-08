@@ -69,7 +69,7 @@ const ScannerScreen = () => {
       const newValue = value.slice(1);
       const newSet = scannedValues.add(newValue);
       setScannedValues(newSet);
-      Alert.alert('Đã quét', value, [
+      Alert.alert('Đã quét', newValue, [
         {
           text: 'OK',
           onPress: () => {
@@ -104,13 +104,12 @@ const ScannerScreen = () => {
         <View style={styles.scanFrame} />
       </View>
 
-      {/* Nút kết thúc */}
       <TouchableOpacity
         style={styles.endScanButton}
         onPress={() => {
           setIsActive(false);
           navigation.navigate('ResultScreen', {
-            scannedValues: Array.from(scannedValues),
+            scannedData: Array.from(scannedValues),
           });
         }}>
         <Text style={styles.endScanText}>Kết thúc quét</Text>
