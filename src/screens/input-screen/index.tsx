@@ -10,6 +10,7 @@ import {
   Image,
   TouchableWithoutFeedback,
   Keyboard,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {AppColor} from '../../const/app-color';
 import {AppImages} from '../../const/app-images';
@@ -35,62 +36,68 @@ const InputScreen = () => {
     <TouchableWithoutFeedback
       style={{flex: 1}}
       onPress={() => Keyboard.dismiss()}>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.content}>
-          <Image
-            style={{
-              width: 60,
-              height: undefined,
-              aspectRatio: 1,
-              marginBottom: 10,
-            }}
-            resizeMode="contain"
-            source={AppImages.logo}
-          />
-          <Text style={styles.title}>NHẬP DỮ LIỆU ĐẦU VÀO</Text>
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={{flex: 1}}
+        // keyboardVerticalOffset={30}
+        enabled>
+        <SafeAreaView style={styles.container}>
+          <View style={styles.content}>
+            <Image
+              style={{
+                width: 60,
+                height: undefined,
+                aspectRatio: 1,
+                marginBottom: 10,
+              }}
+              resizeMode="contain"
+              source={AppImages.logo}
+            />
+            <Text style={styles.title}>NHẬP DỮ LIỆU ĐẦU VÀO</Text>
 
-          <View style={styles.inputContainer}>
-            <View style={styles.inputGroup}>
-              <Text style={styles.label}>Giá trị đầu</Text>
-              <TextInput
-                style={styles.input}
-                value={startValue}
-                onChangeText={setStartValue}
-                placeholderTextColor={AppColor.gray}
-                keyboardType="numeric"
-                placeholder="Nhập giá trị"
-                maxLength={7}
-              />
+            <View style={styles.inputContainer}>
+              <View style={styles.inputGroup}>
+                <Text style={styles.label}>Giá trị đầu</Text>
+                <TextInput
+                  style={styles.input}
+                  value={startValue}
+                  onChangeText={setStartValue}
+                  placeholderTextColor={AppColor.gray}
+                  keyboardType="numeric"
+                  placeholder="Nhập giá trị"
+                  maxLength={7}
+                />
+              </View>
+
+              <View style={styles.inputGroup}>
+                <Text style={styles.label}>Giá trị cuối</Text>
+                <TextInput
+                  style={styles.input}
+                  value={endValue}
+                  onChangeText={setEndValue}
+                  placeholderTextColor={AppColor.gray}
+                  keyboardType="numeric"
+                  placeholder="Nhập giá trị"
+                  maxLength={7}
+                />
+              </View>
             </View>
 
-            <View style={styles.inputGroup}>
-              <Text style={styles.label}>Giá trị cuối</Text>
-              <TextInput
-                style={styles.input}
-                value={endValue}
-                onChangeText={setEndValue}
-                placeholderTextColor={AppColor.gray}
-                keyboardType="numeric"
-                placeholder="Nhập giá trị"
-                maxLength={7}
-              />
-            </View>
+            <TouchableOpacity
+              disabled={!startValue || !endValue}
+              style={[
+                styles.scanButton,
+                {
+                  backgroundColor:
+                    !!startValue && !!endValue ? AppColor.white : AppColor.gray,
+                },
+              ]}
+              onPress={handleScan}>
+              <Text style={styles.scanButtonText}>Quét ngay</Text>
+            </TouchableOpacity>
           </View>
-
-          <TouchableOpacity
-            disabled={!startValue || !endValue}
-            style={[
-              styles.scanButton,
-              {
-                backgroundColor:
-                  !!startValue && !!endValue ? AppColor.white : AppColor.gray,
-              },
-            ]}
-            onPress={handleScan}>
-            <Text style={styles.scanButtonText}>Quét ngay</Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };

@@ -28,9 +28,9 @@ export const ResultScreen = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.table}>
-          {scannedData?.map(rowIndex => (
+          {scannedData?.map(i => (
             <View
-              key={`cell-${rowIndex}`}
+              key={`cell-${i}`}
               style={[
                 styles.cell,
                 {
@@ -40,7 +40,7 @@ export const ResultScreen = () => {
                   borderColor: AppColor.gray,
                 },
               ]}>
-              <Text style={styles.cellText}>{'cell123111'}</Text>
+              <Text style={styles.cellText}>{i}</Text>
             </View>
           ))}
         </View>
